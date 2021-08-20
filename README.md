@@ -33,5 +33,6 @@ After that it will be sleeping most of the time, periodically checking api for n
 ## Tests
 
 ```
+mix deps.get
 mix test --no-start
 ```
