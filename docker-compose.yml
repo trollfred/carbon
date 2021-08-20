@@ -27,4 +27,13 @@ services:
     environment:
       - CLUSTER_NAME=riakts
       - COORDINATOR_NODE=riakts_c
+  carbon:
+    build: .
+    image: trollfred/carbon
+    links:
+      - riakts_c
+      - riakts
+    depends_on:
+      - riakts_c
+      - riakts
 

@@ -5,11 +5,18 @@ config :carbon, table_name: "CarbonIntensity",
 
 config :pooler, pools: [
   [
-    name: :riaklocal,
+    name: :riakts_c,
     group: :riak,
-    max_count: 10,
-    init_count: 5,
-    start_mfa: {Riak.Connection, :start_link, ['host.docker.internal', 8087]}
+    max_count: 6,
+    init_count: 3,
+    start_mfa: {Riak.Connection, :start_link, ['riakts_c', 8087]}
+  ],
+  [
+    name: :riakts,
+    group: :riak,
+    max_count: 12,
+    init_count: 6,
+    start_mfa: {Riak.Connection, :start_link, ['riakts', 8087]}
   ],
   [
     name: :carbon_api,
