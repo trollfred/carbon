@@ -16,17 +16,17 @@ defmodule Carbon.Storage do
   def find_last(cursor, _, _, time_start) when cursor < time_start, do: time_start
   def find_last(cursor, state, table_name, time_start) do
     query = "select max(time) from #{table_name}
-             where time <= #{cursor} and time > #{cursor - window}"
+             where time <= #{cursor} and time > #{cursor - window()}"
     case Riak.Timeseries.query(query) do
       {_, [{[]}]} ->
         case state do
           {:found, found} -> found # last in a row, probably last overall
-          _ -> find_last(cursor - window, :cont, table_name, time_start)
+          _ -> find_last(cursor - window(), :cont, table_name, time_start)
         end
       {_, [{found}]} ->
         case state do
           :cont -> found # first found during retrospective lookup -> found
-          _ -> find_last(cursor + window, {:found, found}, table_name, time_start)
+          _ -> find_last(cursor + window(), {:found, found}, table_name, time_start)
         end
     end
   end
