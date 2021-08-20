@@ -11,7 +11,12 @@ defmodule Carbon.Application do
       }
     ]
 
-    opts = [strategy: :one_for_one, name: Carbon.Supervisor]
+    opts = [
+      name: Carbon.Supervisor,
+      strategy: :one_for_one,
+      intensity: 50,
+      period: 50
+    ]
     Supervisor.start_link(children, opts)
   end
 end
