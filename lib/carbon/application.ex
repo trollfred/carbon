@@ -14,8 +14,8 @@ defmodule Carbon.Application do
     opts = [
       name: Carbon.Supervisor,
       strategy: :one_for_one,
-      intensity: 50,
-      period: 50
+      intensity: 200, # Dirty hack to make it wait
+      period: 20      # for riak nodes to become online
     ]
     Supervisor.start_link(children, opts)
   end
