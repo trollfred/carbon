@@ -42,6 +42,7 @@ defmodule Carbon.Worker do
     process_batch(rest, acc)
   end
   defp process_batch([%{"from" => time, "intensity" => %{"actual" => intensity}} | rest], acc) do
+    IO.puts "Processing: #{time}: #{intensity}"
     process_batch(rest, [{Carbon.Time.to_unix(time), intensity} | acc])
   end
 
