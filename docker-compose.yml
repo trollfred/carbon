@@ -1,0 +1,30 @@
+version: "2"
+services:
+  riakts_c:
+    image: basho/riak-ts
+    ports:
+      - "8087:8087"
+      - "8098:8098"
+    environment:
+      - CLUSTER_NAME=riakts
+    labels:
+      - "com.basho.riak.cluster.name=riakts"
+    volumes:
+      - ./riak_schemas:/etc/riak/schemas
+  riakts:
+    image: basho/riak-ts
+    deploy:
+      replicas: 2
+    ports:
+      - "8087"
+      - "8098"
+    labels:
+      - "com.basho.riak.cluster.name=riakts"
+    links:
+      - riakts_c
+    depends_on:
+      - riakts_c
+    environment:
+      - CLUSTER_NAME=riakts
+      - COORDINATOR_NODE=riakts_c
+
