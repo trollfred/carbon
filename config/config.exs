@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :carbon, table_name: "CarbonIntensity",
-                time_start: 1577836800 # beginning of year 2020
+                time_start: 1609459200 # beginning of year 2021
 
 config :pooler, pools: [
   [
